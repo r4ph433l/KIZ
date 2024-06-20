@@ -2,6 +2,6 @@ put the files into .config
 
 install the files in install
 
-put lightdm.conf, lightdm-mini-greeter.conf and Xsession into /etc/lightdm/
+put lightdm.conf and lightdm-mini-greeter.conf into /etc/lightdm/
 
-move .bashrc and .xsession to ~/
+move .bashrc and .xprofile to ~/
