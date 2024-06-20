@@ -11,4 +11,6 @@ ttf-FiraCodeNerdFont	/
 pavucontrol	/
 rofi		/
 brightnessctl   /
-python-dbus
+python-dbus /
+lightdm /
+lightdm-mini-greeter
