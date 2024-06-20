@@ -1,0 +1,14 @@
+yay -S		/
+bspwm-rounded-corners	/
+shxkd		/
+pamixer		/
+spotify		/
+firefox		/
+playerctl	/
+i3lock-color	/
+alacritty	/
+ttf-FiraCodeNerdFont	/
+pavucontrol	/
+rofi		/
+brightnessctl   /
+python-dbus
