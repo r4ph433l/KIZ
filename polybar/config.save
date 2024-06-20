@@ -1,0 +1,174 @@
+[colors]
+background = #202020
+foreground = #c5c9c5
+black = #0d0c0c
+blue = #8ba4b0
+cyan = #8ea4a2
+green = #8a9a7b
+magenta = #a292a3
+red = #c4746e
+white = #c8c093
+yellow = #c4b28a
+
+[bar/basedbar]
+monitor			= eDP-1
+monitor-fallback	= DVI-D-0
+monitor-strict		= false
+monitor-exact		= true
+override-redirect	= false
+bottom			= false
+fixed-center		= true
+width			= 100%:-24
+height			= 24
+offset-x		= 12
+offset-y		= 12
+background		= ${colors.background}
+foreground		= ${colors.white}
+radius			= 6
+line-size		=
+line-color		=
+border-size		= 2
+border-color		= ${colors.white}
+padding			= 1
+module-margin		= 1
+font-0			= FiraCode Nerd Font Mono:size=18; +3
+font-1			= FiraCode Nerd Font Mono; +2
+font-2			= FiraCode Nerd Font Mono; +2
+modules-left		= bspwm
+modules-center		= clock
+modules-right		= pulseaudio cpu memory battery wireless-network wired-network
+
+[module/clock]
+type			= internal/date
+date =
+date-alt =  %Y-%m-%d
+time = %H:%M
+time-alt = %H:%M:%S
+label			= %{T2}%date% %time%%{T-}
+
+[module/bspwm]
+type			= internal/bspwm
+pin-workspaces		= true
+inline-mode		= true
+enable-click		= true
+enable-scroll		= false
+reverse-scroll		= false
+fuzzy-match		= true
+ws-icon-default		= %{T2} %{T-}
+format			= <label-state>
+label-focused		= %icon% 
+label-focused-foreground	= ${colors.red}
+label-occupied		= %icon% 
+label-occupied-foreground	= ${colors.white}
+label-empty		= %{T2} %{T-}
+label-empty-foreground		= ${colors.white}
+
+[module/cpu]
+type			= internal/cpu
+interval		= 0.5
+warn-percentage		= 90
+format-prefix		= %{A3:alacritty -h -e neofetch:}%{T1}󰻠 %{T-}%{A}
+format-prefix-foreground = ${colors.blue}
+format-warn-prefix	= %{A3:alacritty -h -e neofetch:}%{T1}󰻠 %{T-}%{A}
+format-warn-prefix-foreground = ${colors.red}
+format			= <label>
+format-warn		= <label-warn>
+label			= %{T2}%percentage%%%{T-}
+
+
+[module/memory]
+type                    = internal/memory
+interval                = 0.5
+warn-percentage         = 90
+format-prefix           = %{A3:alacritty -e htop:}%{T1}󰍛 %{T-}%{A}
+format-prefix-foreground = ${colors.blue}
+format-warn-prefix      = %{A3:alacritty -e htop:}%{T1}󰍛 %{T-}%{A}
+format-warn-prefix-foreground = ${colors.red}
+format                  = <label>
+format-warn             = <label-warn>
+label                   = %{T2}%percentage_used%%%{T-}
+
+[module/battery]
+type			= internal/battery
+full-at			= 99
+low-at			= 5
+battery			= BAT1
+adapter			= ACAD
+intervall		= 0.5
+format-discharging	= <ramp-capacity>
+ramp-capacity-0		= %{T2}󰂎%{T-}
+ramp-capcaity-0-foreground = ${colors.red}
+ramp-capacity-1		= %{T2}󱊡%{T-}
+ramp-capacity-1-foreground = ${colors.magenta}
+ramp-capacity-2		= %{T2}󱊢%{T-}
+ramp-capacity-2-foreground = ${colors.blue}
+ramp-capacity-3		= %{T2}󱊣%{T-}
+ramp-capacity-3-foreground = ${colors.cyan}
+format-charging		= <animation-charging>
+format-charging-foreground = ${colors.white}
+animation-charging-0	= %{T2}󰂎%{T-}
+animation-charging-1	= %{T2}󱊡%{T-}
+animation-charging-2	= %{T2}󱊢%{T-}
+animation-charging-3	= %{T2}󱊣%{T-}
+animation-charging-framerate = 750
+format-full		= <label-full>
+format-full-foreground	= ${colors.green}
+label-full		= %{T2}󱈑%{T-}
+format-low		= <animation-low>
+format-low-foreground	= ${colors.red}
+animation-low-0		= %{T2}󱈑%{T-}
+animation-low-1		= %{T2}󰂎%{T-}
+animation-low-framerate = 200
+
+[module/pulseaudio]
+type			= internal/pulseaudio
+use-ui-max		= false
+interval		= 5
+format-volume		= <label-volume>
+format-volume-prefix    = %{T1}󰕾 %{T-}
+format-volume-prefix-foreground = ${colors.blue}
+format-muted		= <label-muted>
+format-muted-prefix	= %{T1}󰝟 %{T-}
+format-muted-prefix-foreground = ${colors.red}
+label-volume		= %{T2}%percentage%%%{T2}
+label-muted		= %{T2}%percentage%%%{T2}
+click-right		= pavucontrol
+
+[module/wireless-network]
+type			= internal/network
+interface		= wlo1
+format-connected	= <ramp-signal>
+format-disconnected	= <label-disconnected>
+format-packetloss	= <animation-packetloss>
+ramp-signal-0		= %{A3:alacritty -e nmtui:}%{T1}󰤯%{T-}%{A}
+ramp-signal-0-foreground = ${colors.red}
+ramp-signal-1		= %{A3:alacritty -e nmtui:}%{T1}󰤟%{T-}%{A}
+ramp-signal-1-foreground = ${colors.magenta}
+ramp-signal-2           = %{A3:alacritty -e nmtui:}%{T1}󰤢%{T-}%{A}
+ramp-signal-2-foreground = ${colors.blue}
+ramp-signal-3		= %{A3:alacritty -e nmtui:}%{T1}󰤥%{T-}%{A}
+ramp-signal-3-foreground = ${colors.cyan}
+ramp-signal-4		= %{A3:alacritty -e nmtui:}%{T1}󰤨%{T-}%{A}
+ramp-signal-4-foreground = ${colors.green}
+label-disconnected	= %{A3:alacritty -e nmtui:}%{T1}󰤮%{T-}%{A}
+format-disconnected-foreground = ${colors.white}
+animation-packetloss-0	= %{A3:alacritty -e nmtui:}%{T1}󰤫%{T-}%{A}
+animation-packetloss-1  = %{A3:alacritty -e nmtui:}%{T1}󰤯%{T-}%{A}
+animation-packetloss-framerate = 200
+format-packetloss-foreground = ${colors.red}
+
+[module/wired-network]
+type			= internal/network
+interface		= eno1
+format-connected	= <label-connected>
+format-connected-foreground = ${colors.blue}
+label-connected		= %{T1}󱘖%{T-}
+
+
+
+
+
+ 
+[settings]
+screenchange-reload = true
+pseudo-transparency = true

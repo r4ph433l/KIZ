@@ -1,0 +1,239 @@
+[colors]
+background = ${xrdb:background}
+b2	   = ${xrdb:background2}
+foreground = ${xrdb:foreground}
+black = ${xrdb:black}
+blue = ${xrdb:blue}
+cyan = ${xrdb:cyan}
+green = ${xrdb:green}
+magenta = ${xrdb:magenta}
+red = ${xrdb:red}
+white = ${xrdb:white}
+yellow = ${xrdb:yellow}
+
+[bar/basedbar]
+monitor			= eDP-1
+monitor-fallback	= DVI-D-0
+monitor-strict		= false
+monitor-exact		= true
+override-redirect	= false
+bottom			= false
+fixed-center		= true
+width			= 100%:-24
+height			= 24
+offset-x		= 12
+offset-y		= 12
+background		= ${colors.b2}
+foreground		= ${colors.white}
+radius			= 6
+line-size		=
+line-color		=
+border-size		= 2
+border-color		= ${colors.white}
+padding			= 1
+module-margin		= 1
+font-0			= FiraCode Nerd Font Mono:size=18; +3
+font-1			= FiraCode Nerd Font Mono; +3
+font-2			= FiraCode Nerd Font Mono; +2
+font-3			= FiraCode Nerd Font Mono:size=12; +2
+font-4			= FiraCode Nerd Font Mono:size=15; +3
+modules-left		= bspwm spotify
+modules-center		= clock
+modules-right		= wired-network wireless-network pulseaudio cpu memory backlight battery power
+enable-ipc		= true
+wm-restack		= bspwm
+
+[module/clock]
+type			= internal/date
+date =
+date-alt =  %Y-%m-%d
+time = %H:%M
+time-alt = %H:%M:%S
+label			= %{T2}%date% %time%%{T-}
+label-foreground	= ${colors.foreground}
+
+[module/bspwm]
+type			= internal/bspwm
+pin-workspaces		= true
+inline-mode		= true
+enable-click		= true
+enable-scroll		= false
+reverse-scroll		= false
+fuzzy-match		= true
+ws-icon-default		= %{T3} %{T-}
+format			= <label-state>
+label-focused		= %icon% 
+label-focused-foreground	= ${colors.red}
+label-occupied		= %icon% 
+label-occupied-foreground	= ${colors.white}
+label-empty		= %{T3} %{T-}
+label-empty-foreground		= ${colors.white}
+
+[module/cpu]
+type			= internal/cpu
+interval		= 0.5
+warn-percentage		= 90
+format-prefix		= %{A3:bspc rule -a \* -o state=floating rectangle=400x200+0+0 center=true && alacritty --hold -e cfetch:}%{T1}󰻠 %{T-}%{A}
+format-prefix-foreground = ${colors.blue}
+format-warn-prefix	= %{A3:bspc rule -a \* -o state=floating rectangle=400x200+0+0 center=true && alacritty --hold -e cfetch:}%{T1}󰻠 %{T-}%{A}
+format-warn-prefix-foreground = ${colors.red}
+format			= <label>
+format-warn		= <label-warn>
+label			= %{T2}%percentage:02%%%{T-}
+label-warn		= %{T2}%percentage:02%%%{T-}
+label-foreground	= ${colors.foreground}
+
+
+[module/memory]
+type                    = internal/memory
+interval                = 0.5
+warn-percentage         = 90
+format-prefix           = %{A3:bspc rule -a \* -o state=floating rectangle=1200x700+0+0 center=true && alacritty -e htop:}%{T1}󰍛 %{T-}%{A}
+format-prefix-foreground = ${colors.blue}
+format-warn-prefix      = %{A3:bspc rule -a \* -o state=floating rectangle=1200x700+0+0 center=true && alacritty -e htop:}%{T1}󰍛 %{T-}%{A}
+format-warn-prefix-foreground = ${colors.red}
+format                  = <label>
+format-warn             = <label-warn>
+label                   = %{T2}%percentage_used:02%%%{T-}
+label-warn		= %{T2}%percentage_used:02%%%{T-}
+label-foreground	= ${colors.foreground}
+
+[module/battery]
+type			= internal/battery
+full-at			= 99
+low-at			= 5
+battery			= BAT1
+adapter			= ACAD
+intervall		= 0.5
+format-discharging	= <ramp-capacity>
+ramp-capacity-0		= %{T3}󰂎%{T-}
+ramp-capcaity-0-foreground = ${colors.red}
+ramp-capacity-1		= %{T3}󱊡%{T-}
+ramp-capacity-1-foreground = ${colors.magenta}
+ramp-capacity-2		= %{T3}󱊢%{T-}
+ramp-capacity-2-foreground = ${colors.blue}
+ramp-capacity-3		= %{T3}󱊣%{T-}
+ramp-capacity-3-foreground = ${colors.cyan}
+format-charging		= <animation-charging>
+format-charging-foreground = ${colors.white}
+animation-charging-0	= %{T3}󰂎%{T-}
+animation-charging-1	= %{T3}󱊡%{T-}
+animation-charging-2	= %{T3}󱊢%{T-}
+animation-charging-3	= %{T3}󱊣%{T-}
+animation-charging-framerate = 750
+format-full		= <label-full>
+format-full-foreground	= ${colors.green}
+label-full		= %{T3}󱈑%{T-}
+format-low		= <animation-low>
+format-low-foreground	= ${colors.red}
+animation-low-0		= %{T3}󱈑%{T-}
+animation-low-1		= %{T3}󰂎%{T-}
+animation-low-framerate = 200
+
+[module/pulseaudio]
+type			= internal/pulseaudio
+use-ui-max		= false
+interval		= 5
+format-volume		= <label-volume>
+format-volume-prefix    = %{T1}󰕾 %{T-}
+format-volume-prefix-foreground = ${colors.blue}
+format-muted		= <label-muted>
+format-muted-prefix	= %{T1}󰝟 %{T-}
+format-muted-prefix-foreground = ${colors.red}
+label-volume		= %{T2}%percentage:02%%%{T2}
+label-volume-foreground	= ${colors.foreground}
+label-muted		= %{T2}%percentage:02%%%{T2}
+label-muted-foreground	= ${colors.foreground}
+click-right		= bspc rule -a \* -o state=floating && pavucontrol
+
+[module/wireless-network]
+type			= internal/network
+interface		= wlo1
+format-connected	= <ramp-signal>
+format-disconnected	= <label-disconnected>
+format-packetloss	= <animation-packetloss>
+ramp-signal-0		= %{A3:bspc rule -a \* -o state=floating && alacritty -e nmtui:}%{T1}󰤯%{T-}%{A}
+ramp-signal-0-foreground = ${colors.red}
+ramp-signal-1		= %{A3:bspc rule -a \* -o state=floating && alacritty -e nmtui:}%{T1}󰤟%{T-}%{A}
+ramp-signal-1-foreground = ${colors.magenta}
+ramp-signal-2           = %{A3:bspc rule -a \* -o state=floating && alacritty -e nmtui:}%{T1}󰤢%{T-}%{A}
+ramp-signal-2-foreground = ${colors.blue}
+ramp-signal-3		= %{A3:bspc rule -a \* -o state=floating && alacritty -e nmtui:}%{T1}󰤥%{T-}%{A}
+ramp-signal-3-foreground = ${colors.cyan}
+ramp-signal-4		= %{A3:bspc rule -a \* -o state=floating && alacritty -e nmtui:}%{T1}󰤨%{T-}%{A}
+ramp-signal-4-foreground = ${colors.green}
+label-disconnected	= %{A3:bspc rule -a \* -o state=floating && alacritty -e nmtui:}%{T1}󰤮%{T-}%{A}
+format-disconnected-foreground = ${colors.white}
+animation-packetloss-0	= %{A3:bspc rule -a \* -o state=floating && alacritty -e nmtui:}%{T1}󰤫%{T-}%{A}
+animation-packetloss-1  = %{A3:bspc rule -a \* -o state=floating && alacritty -e nmtui:}%{T1}󰤯%{T-}%{A}
+animation-packetloss-framerate = 200
+format-packetloss-foreground = ${colors.red}
+
+[module/wired-network]
+type			= internal/network
+interface		= eno1
+format-connected	= <label-connected>
+format-connected-foreground = ${colors.blue}
+label-connected		= %{T1}󱘖%{T-}
+
+[module/backlight]
+type			= internal/backlight
+card			= intel_backlight
+scroll-interval		= 10
+enable-scroll		= true
+format			= <ramp><label>
+label			=
+ramp-0			= %{T5}%{O2}󰃚%{T-}
+ramp-1			= %{T4}%{O5}󰃛%{T-}
+ramp-2			= %{T3}%{O5}󰃜%{T-}
+ramp-3			= %{T1}󰃝%{T-}
+ramp-4			= %{T1}󰃞%{T-}
+ramp-5			= %{T1}󰃟%{T-}
+ramp-6			= %{T1}󰃠%{T-}
+
+[module/spotify]
+type			= custom/script
+interval		= 1
+format-prefix		= %{T1}󰎆 %{T-}
+format-prefix-foreground = ${colors.red}
+format			= %{T2}<label>%{T-}
+format-foreground	= ${colors.foreground}
+exec			= python ~/.config/scripts/spotify_status.py -f '{artist}: {song}' -t 50
+click-left		= playerctl --player=spotify play-pause
+click-right		= playerctl --player=spotify next
+click-middle		= playerctl --player=spotify previous
+
+[module/power]
+type			= custom/menu
+expand-right		= true
+label-open		= %{T1}󰐥%{T-}
+label-close		= %{T1}󰜺 %{T-}
+menu-0-0		= %{T1}󰐥 %{T-}
+menu-0-0-foreground	= ${colors.red}
+menu-0-0-exec		= shutdown now
+menu-0-3		= %{T5}󰌾%{T-}
+menu-0-3-foreground	= ${colors.white}
+menu-0-3-exec		= .config/lock.sh
+menu-0-1		= %{T1}󰑓 %{T-}
+menu-0-1-foreground	= ${colors.green}
+menu-0-1-exec		= reboot
+menu-0-2		= %{T1}󰚀 %{T-}
+menu-0-2-foreground	= ${colors.blue}
+menu-0-2-exec		= ~/.config/themes/switch.sh
+
+[module/bluetooth]
+type = custom/script
+format-suffix = %{T3} 󰂯%{T-}
+format-suffix-foreground = ${colors.magenta}
+format = %{T2}<label>%{T-}
+exec = ~/.config/polybar/system-bluetooth-bluetoothctl.sh
+tail = true
+click-left = ~/.config/polybar/system-bluetooth-bluetoothctl.sh --toggle &
+click-right = bspc rule -a \* -o state=floating rectangle=1200x700+0+0 center=true && alacritty -e bluetoothctl
+
+[settings]
+screenchange-reload	= true
+pseudo-transparency	= true
+override-redirect	= true
+wm-restack		= bspwm
+
